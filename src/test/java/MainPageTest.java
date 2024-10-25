@@ -1,16 +1,11 @@
 import io.qameta.allure.junit4.DisplayName;
-
 import org.junit.Rule;
 import org.junit.Test;
-
 import org.openqa.selenium.WebDriver;
-
 import ru.praktikum.Pages.MainPage;
 import static ru.praktikum.Pages.MainPage.*;
 
-
 public class MainPageTest {
-
 
     @Rule
     public DriverRule driverRule = new DriverRule();
@@ -70,7 +65,6 @@ public class MainPageTest {
 
        clickLogo(driver);
        checkLoadHomePage(driver);
-
     }
 
     @Test
@@ -81,12 +75,6 @@ public class MainPageTest {
 
         clickConstructorInHeader(driver);
         checkLoadHomePage(driver);
-
     }
-
-
-
-
-
 
 }

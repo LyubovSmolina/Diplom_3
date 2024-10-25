@@ -8,10 +8,7 @@ import ru.praktikum.UserData.RandomUserData;
 import ru.praktikum.Pages.RegisterPage;
 import static ru.praktikum.Pages.RegisterPage.*;
 
-
-
 public class RegisterPageTest extends LogInPage {
-
 
     @Rule
     public DriverRule driverRule = new DriverRule();
@@ -45,7 +42,6 @@ public class RegisterPageTest extends LogInPage {
 
         //Авторизация пользователя, получение токена
         getTokenFromLocalStorage(driver, email, password);
-
     }
 
     @Test
@@ -64,7 +60,6 @@ public class RegisterPageTest extends LogInPage {
         System.out.println(password);
 
         getTokenFromLocalStorage(driver, email, password);
-
     }
 
     @Test

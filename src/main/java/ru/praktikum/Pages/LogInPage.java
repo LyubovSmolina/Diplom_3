@@ -21,14 +21,17 @@ public class LogInPage {
     By fieldEmail = By.xpath(".//input[@type='text']");
     By fieldPassword = By.xpath(".//input[@type='password']");
 
-
     //Кнопка выхода из аккаунта, расположена в личном кабинете пользователя
     By logOutButton = By.className("Account_button__14Yp3");
 
+    //Кнопки восстановления пароля и входа со страницы восстановления последнего
+    By refreshPasswordLink = By.xpath("//*[@id=\"root\"]/div/main/div/div/p[2]/a");
+    By loginFromRefreshPasswordPage = By.xpath("//*[@id=\"root\"]/div/main/div/div/p/a");
+
+    //Ссылка на личный кабинет в хедере страницы
+    static By personalAccountButtonInHeader = By.xpath("//*[@id=\"root\"]/div/header/nav/a/p");
+
     public static String tokenForDel;
-
-
-
 
     @Step("Авторизация и получение токена пользователя")
     public void getTokenFromLocalStorage(WebDriver driver, String email, String password) {
@@ -64,5 +67,75 @@ public class LogInPage {
                 .statusCode(ACCEPT_202);
         System.out.println("Учетная запись клиента успешно удалена");
     }
+
+
+    @Step("Авторизация по кнопке Войти и получение токена пользователя")
+    public void logInAccountButtonOnMainPage (WebDriver driver, String email, String password) {
+
+        driver.get(BASE_URL);
+
+        new WebDriverWait(driver, Duration.ofSeconds(TIME_WAIT))
+                .until(ExpectedConditions.visibilityOfElementLocated(logInButton));
+        driver.findElement(logInButton).click();
+        driver.findElement(fieldEmail).sendKeys(email);
+        driver.findElement(fieldPassword).sendKeys(password);
+        driver.findElement(logInButton).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.numberOfElementsToBeMoreThan(
+                        By.cssSelector("a[class^='BurgerIngredient']"), 2));
+
+        LocalStorage localStorage = ((WebStorage) driver).getLocalStorage();
+        String accessToken = localStorage.getItem("accessToken");
+        tokenForDel = StringUtils.substringAfter(accessToken, " ");
+
+    }
+
+    @Step("Авторизация по ссылке в хедере страницы и получение токена пользователя")
+    public void logInFromHeaderLink (WebDriver driver, String email, String password) {
+
+        driver.get(BASE_URL);
+
+        new WebDriverWait(driver, Duration.ofSeconds(TIME_WAIT))
+                .until(ExpectedConditions.visibilityOfElementLocated(logInButton));
+        driver.findElement(personalAccountButtonInHeader).click();
+        driver.findElement(fieldEmail).sendKeys(email);
+        driver.findElement(fieldPassword).sendKeys(password);
+        driver.findElement(logInButton).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.numberOfElementsToBeMoreThan(
+                        By.cssSelector("a[class^='BurgerIngredient']"), 2));
+
+        LocalStorage localStorage = ((WebStorage) driver).getLocalStorage();
+        String accessToken = localStorage.getItem("accessToken");
+        tokenForDel = StringUtils.substringAfter(accessToken, " ");
+    }
+
+    @Step("Авторизация по ссылке в хедере страницы и получение токена пользователя")
+    public void logInFromRefreshPasswordPage (WebDriver driver, String email, String password) {
+
+        driver.get(BASE_URL);
+
+        new WebDriverWait(driver, Duration.ofSeconds(TIME_WAIT))
+                .until(ExpectedConditions.visibilityOfElementLocated(logInButton));
+        driver.findElement(personalAccountButtonInHeader).click();
+        driver.findElement(refreshPasswordLink).click();
+        driver.findElement(loginFromRefreshPasswordPage).click();
+
+        driver.findElement(fieldEmail).sendKeys(email);
+        driver.findElement(fieldPassword).sendKeys(password);
+        driver.findElement(logInButton).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.numberOfElementsToBeMoreThan(
+                        By.cssSelector("a[class^='BurgerIngredient']"), 2));
+
+        LocalStorage localStorage = ((WebStorage) driver).getLocalStorage();
+        String accessToken = localStorage.getItem("accessToken");
+        tokenForDel = StringUtils.substringAfter(accessToken, " ");
+
+    }
+
 
 }

@@ -6,7 +6,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.praktikum.CONST;
 import ru.praktikum.UserData.RandomUserData;
-
 import java.time.Duration;
 import static org.junit.Assert.assertTrue;
 
@@ -15,7 +14,6 @@ public class RegisterPage {
 
     //Ссылка на форму регистрации нового аккаунта, расположена на странице авторизации
     static By registerANewAccountButton = By.xpath("//*[@id=\"root\"]/div/main/div/div/p[1]/a");
-
 
     //Поля регистрации аккаунта
     static By fieldRegisterName = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[1]/div/div/input");

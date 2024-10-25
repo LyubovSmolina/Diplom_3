@@ -1,5 +1,4 @@
 package ru.praktikum.Pages;
-
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.praktikum.CONST;
-
 import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
@@ -31,8 +29,6 @@ public class MainPage {
     static By bunTab = By.cssSelector(".tab_tab__1SPyG:nth-child(1)");
     static By sauceTab = By.cssSelector(".tab_tab__1SPyG:nth-child(2)");
     static By fillingTab = By.cssSelector(".tab_tab__1SPyG:nth-child(3)");
-
-
 
 
 
