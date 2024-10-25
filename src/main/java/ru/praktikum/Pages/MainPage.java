@@ -1,4 +1,4 @@
-package ru.praktikum;
+package ru.praktikum.Pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.praktikum.CONST;
 
 import java.time.Duration;
 
@@ -14,17 +15,17 @@ import static org.junit.Assert.assertTrue;
 public class MainPage {
 
     //Ссылка на личный кабинет в хедере страницы
-    By personalAccountButtonOnHeader = By.xpath("//*[@id=\"root\"]/div/header/nav/a/p");
+    static By personalAccountButtonInHeader = By.xpath("//*[@id=\"root\"]/div/header/nav/a/p");
 
     //Внопка входа в аккаунт на главной странице
-    By loginButtonOnTheMainPage = By.className("button_button__33qZ0 ");
+    By loginButtonOnTheMainPage = By.className("button_button__33qZ0");
 
     //Локатор страницы авторизации(необходим для проверки перехода на страницу по нажатию на кнопки "Личный кабинет" и "Войти в аккаунт")
-    By LoginPage = By.xpath("//*[@id=\"root\"]/div/main/div/h2");
+    static By loginPage = By.xpath("//*[@id=\"root\"]/div/main/div/h2");
 
     //Конструктор и лого в хедере страницы
-    By constructor = By.xpath("//*[@id=\"root\"]/div/header/nav/ul/li[1]/a/p");
-    By logoInHeader = By.xpath("//*[@id=\"root\"]/div/header/nav/div/a");
+    static By constructor = By.xpath("//*[@id=\"root\"]/div/header/nav/ul/li[1]/a/p");
+    static By logoInHeader = By.xpath("//*[@id=\"root\"]/div/header/nav/div/a"); ////*[@id="root"]/div/header/nav/div/a
 
     //Разделы: булки, соусы, начинки, на главной странице
     static By bunTab = By.cssSelector(".tab_tab__1SPyG:nth-child(1)");
@@ -32,11 +33,21 @@ public class MainPage {
     static By fillingTab = By.cssSelector(".tab_tab__1SPyG:nth-child(3)");
 
 
+
+
+
     @Step("Загрузка главной страницы продукта")
     public static void openURL(WebDriver driver) {
         driver.get(CONST.BASE_URL);
         new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))
                 .until(ExpectedConditions.visibilityOfElementLocated(sauceTab));
+    }
+
+    @Step("Загрузка страницы авторизации")
+    public static void openLoginPage (WebDriver driver) {
+        driver.get(CONST.LOGIN_PAGE);
+        new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))
+                .until(ExpectedConditions.visibilityOfElementLocated(loginPage));
     }
 
 
@@ -82,6 +93,37 @@ public class MainPage {
         WebElement elementFillingTab = driver.findElement(bunTab);
         String bunTabClass = elementFillingTab.getAttribute("class");
         assertTrue(bunTabClass.contains("current"));
+    }
+
+    @Step("Переход на страницу авторизации по клику ссылки Личный кабинет в хедере страницы")
+    public static void clickPersonalAccountButtonInHeader(WebDriver driver) {
+        driver.findElement(personalAccountButtonInHeader).click();
+        new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(loginPage));
+    }
+
+    @Step("Проверка загрузки страницы авторизации")
+    public static void checkLoginPageIsEnable (WebDriver driver) {
+        assertTrue(driver.findElement(loginPage).isDisplayed());
+    }
+
+    @Step("Клик по логотипу Stellar Burger в хедере страницы")
+    public static void clickLogo (WebDriver driver) {
+        driver.findElement(logoInHeader).click();
+        new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(bunTab));
+    }
+
+    @Step("Клик по ссылке Конструктор в хедере страницы")
+    public static void clickConstructorInHeader (WebDriver driver) {
+        driver.findElement(constructor).click();
+        new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(bunTab));
+    }
+
+    @Step("Проверка загрузки главной страницы")
+    public static void checkLoadHomePage (WebDriver driver) {
+        assertTrue(driver.findElement(bunTab).isDisplayed());
     }
 
 }

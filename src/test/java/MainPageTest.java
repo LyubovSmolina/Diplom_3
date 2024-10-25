@@ -1,9 +1,12 @@
 import io.qameta.allure.junit4.DisplayName;
+
 import org.junit.Rule;
 import org.junit.Test;
+
 import org.openqa.selenium.WebDriver;
-import ru.praktikum.MainPage;
-import static ru.praktikum.MainPage.*;
+
+import ru.praktikum.Pages.MainPage;
+import static ru.praktikum.Pages.MainPage.*;
 
 
 public class MainPageTest {
@@ -47,6 +50,42 @@ public class MainPageTest {
         clickBunTab(driver);
         checkBunTabIsEnable(driver);
     }
+
+
+    @Test
+    @DisplayName("Проверка перехода на страницу авторизации по клику ссылки в хедере страницы")
+    public void loadLoginPageByClickButtonInHeader() {
+        WebDriver driver = driverRule.getDriver();
+        MainPage.openURL(driver);
+
+        clickPersonalAccountButtonInHeader(driver);
+        checkLoginPageIsEnable(driver);
+    }
+
+    @Test
+    @DisplayName("Проверка перехода на главную страницу по клику логотипа Stellar Burgers в хедере страницы")
+    public void loadHomePageByClickOnLogoInHeader() {
+        WebDriver driver = driverRule.getDriver();
+        MainPage.openLoginPage(driver);
+
+       clickLogo(driver);
+       checkLoadHomePage(driver);
+
+    }
+
+    @Test
+    @DisplayName("Проверка перехода на главную страницу по клику ссылки Конструктор в хедере страницы")
+    public void loadHomePageByClickOnConstructorInHeader() {
+        WebDriver driver = driverRule.getDriver();
+        MainPage.openLoginPage(driver);
+
+        clickConstructorInHeader(driver);
+        checkLoadHomePage(driver);
+
+    }
+
+
+
 
 
 
