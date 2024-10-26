@@ -8,6 +8,7 @@ import ru.praktikum.CONST;
 import ru.praktikum.UserData.RandomUserData;
 import java.time.Duration;
 import static org.junit.Assert.assertTrue;
+import static ru.praktikum.CONST.TIME_WAIT;
 
 
 public class RegisterPage {
@@ -36,7 +37,7 @@ public class RegisterPage {
     @Step("Загрузка страницы регистрации")
     public static void openPage(WebDriver driver) {
         driver.get(CONST.REGISTRATION_PAGE);
-        new WebDriverWait(driver, Duration.ofSeconds(30))
+        new WebDriverWait(driver, Duration.ofSeconds(TIME_WAIT))
                 .until(ExpectedConditions.visibilityOfElementLocated(reg));
     }
 
@@ -50,10 +51,10 @@ public class RegisterPage {
         driver.findElement(fieldRegisterPassword).sendKeys(RandomUserData.getPassword());
     }
 
-    @Step("Клик по кнопке Зарегистрироватья")
+    @Step("Клик по кнопке \"Зарегистрироватья\"")
     public static void clickButtonRegistration(WebDriver driver) {
         driver.findElement(buttonRegisterAnAccount).click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, Duration.ofSeconds(TIME_WAIT))
                 .until(ExpectedConditions.visibilityOfElementLocated(loginPage));
 
     }
@@ -63,17 +64,17 @@ public class RegisterPage {
     public static void checkSuccessfulRegistration(WebDriver driver) {
 
         driver.findElement(loginButton).isDisplayed();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, Duration.ofSeconds(TIME_WAIT))
                 .until(ExpectedConditions.elementToBeClickable(loginButton));
         assertTrue(driver.findElement(loginButton).isDisplayed());
 
     }
 
-    @Step("Проверка появления ошибки Некорректный пароль при попытке регистрации аккаунта с паролем менее 6 символов")
+    @Step("Проверка появления ошибки \"Некорректный пароль\" при попытке регистрации аккаунта с паролем менее 6 символов")
     public static void checkErrorRegistrationInvalidPassword(WebDriver driver) {
 
         driver.findElement(buttonRegisterAnAccount).click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, Duration.ofSeconds(TIME_WAIT))
                 .until(ExpectedConditions.visibilityOfElementLocated(errorInvalidPassword));
         assertTrue(driver.findElement(errorInvalidPassword).isDisplayed());
 

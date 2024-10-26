@@ -51,8 +51,4 @@ public class RandomUserData {
         return new  RandomUserData("Diplom" + RandomStringUtils.randomAlphabetic(3), "Diplom@ya." + RandomStringUtils.randomAlphabetic(3), "12345");
     }
 
-//    public static RandomUserData from(RandomUserData newRandomUser) {
-//        return new RandomUserData(RandomUserData.getName(), newRandomUser.getEmail(), RandomUserData.getPassword());
-//    }
-
   }

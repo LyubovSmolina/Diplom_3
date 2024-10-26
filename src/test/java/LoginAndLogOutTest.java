@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import ru.praktikum.Pages.LogInPage;
 import ru.praktikum.UserData.RandomUserData;
 import ru.praktikum.UserData.RandomUserDataApi;
+
+
 import static io.restassured.RestAssured.baseURI;
 import static ru.praktikum.UserData.RandomUserDataApi.checkCreatedUser;
 
@@ -33,7 +35,7 @@ public class LoginAndLogOutTest extends LogInPage {
     }
 
     @Test
-    @DisplayName("Проверка авторизации пользователя по кнопке Войти в аккаунт на главной странице продукта")
+    @DisplayName("Проверка авторизации пользователя по кнопке \"Войти в аккаунт\" на главной странице продукта")
     public void successLoginFromHomePage() {
 
         RandomUserData randomUser = RandomUserData.newRandomUser();
@@ -48,7 +50,7 @@ public class LoginAndLogOutTest extends LogInPage {
     }
 
     @Test
-    @DisplayName("Проверка авторизации пользователя по ссылке на личный кабинет из хедера страницы")
+    @DisplayName("Проверка авторизации пользователя по ссылке на \"Личный кабинет\" из хедера страницы")
     public void successLoginFromLinkInHeader() {
 
         RandomUserData randomUser = RandomUserData.newRandomUser();
@@ -59,7 +61,7 @@ public class LoginAndLogOutTest extends LogInPage {
 
         WebDriver driver = driverRule.getDriver();
 
-        logInAccountButtonOnMainPage(driver, email, password);
+        logInFromHeaderLink(driver, email, password);
     }
 
     @Test
@@ -77,7 +79,21 @@ public class LoginAndLogOutTest extends LogInPage {
         logInFromRefreshPasswordPage(driver, email, password);
     }
 
+    @Test
+    @DisplayName("Проверка выхода из аккаунта")
+    public void successLogOut () {
 
+        RandomUserData randomUser = RandomUserData.newRandomUser();
+        Response response = RandomUserDataApi.apiCreateNewUser(RandomUserDataApi.from(randomUser));
+        checkCreatedUser(response);
+        String email = randomUser.getEmail();
+        String password = randomUser.getPassword();
 
+        WebDriver driver = driverRule.getDriver();
 
+        driver.get("https://stellarburgers.nomoreparties.site/login");
+
+        authByLinkAndGetTokenFromLocalStorage(driver, email, password);
+        clickLogoutButtonAndCheckIt(driver);
+    }
 }

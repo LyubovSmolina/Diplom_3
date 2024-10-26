@@ -15,9 +15,6 @@ public class MainPage {
     //Ссылка на личный кабинет в хедере страницы
     static By personalAccountButtonInHeader = By.xpath("//*[@id=\"root\"]/div/header/nav/a/p");
 
-    //Внопка входа в аккаунт на главной странице
-    By loginButtonOnTheMainPage = By.className("button_button__33qZ0");
-
     //Локатор страницы авторизации(необходим для проверки перехода на страницу по нажатию на кнопки "Личный кабинет" и "Войти в аккаунт")
     static By loginPage = By.xpath("//*[@id=\"root\"]/div/main/div/h2");
 
@@ -32,7 +29,7 @@ public class MainPage {
 
 
 
-    @Step("Загрузка главной страницы продукта")
+    @Step("Загрузка главной страницы")
     public static void openURL(WebDriver driver) {
         driver.get(CONST.BASE_URL);
         new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))
@@ -91,7 +88,7 @@ public class MainPage {
         assertTrue(bunTabClass.contains("current"));
     }
 
-    @Step("Переход на страницу авторизации по клику ссылки Личный кабинет в хедере страницы")
+    @Step("Переход на страницу авторизации по клику ссылки \"Личный кабинет\" в хедере страницы")
     public static void clickPersonalAccountButtonInHeader(WebDriver driver) {
         driver.findElement(personalAccountButtonInHeader).click();
         new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))
@@ -103,14 +100,14 @@ public class MainPage {
         assertTrue(driver.findElement(loginPage).isDisplayed());
     }
 
-    @Step("Клик по логотипу Stellar Burger в хедере страницы")
+    @Step("Клик по логотипу \"Stellar Burger\" в хедере страницы")
     public static void clickLogo (WebDriver driver) {
         driver.findElement(logoInHeader).click();
         new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(bunTab));
     }
 
-    @Step("Клик по ссылке Конструктор в хедере страницы")
+    @Step("Клик по ссылке \"Конструктор\" в хедере страницы")
     public static void clickConstructorInHeader (WebDriver driver) {
         driver.findElement(constructor).click();
         new WebDriverWait(driver, Duration.ofSeconds(CONST.TIME_WAIT))

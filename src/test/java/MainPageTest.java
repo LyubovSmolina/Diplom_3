@@ -48,7 +48,7 @@ public class MainPageTest {
 
 
     @Test
-    @DisplayName("Проверка перехода на страницу авторизации по клику ссылки в хедере страницы")
+    @DisplayName("Проверка перехода на страницу авторизации по ссылке \"Личный кабинет\" в хедере страницы")
     public void loadLoginPageByClickButtonInHeader() {
         WebDriver driver = driverRule.getDriver();
         MainPage.openURL(driver);
@@ -58,7 +58,7 @@ public class MainPageTest {
     }
 
     @Test
-    @DisplayName("Проверка перехода на главную страницу по клику логотипа Stellar Burgers в хедере страницы")
+    @DisplayName("Проверка перехода на главную страницу по клику логотипа \"Stellar Burgers\" в хедере страницы")
     public void loadHomePageByClickOnLogoInHeader() {
         WebDriver driver = driverRule.getDriver();
         MainPage.openLoginPage(driver);
@@ -68,7 +68,7 @@ public class MainPageTest {
     }
 
     @Test
-    @DisplayName("Проверка перехода на главную страницу по клику ссылки Конструктор в хедере страницы")
+    @DisplayName("Проверка перехода на главную страницу по ссылке \"Конструктор\" в хедере страницы")
     public void loadHomePageByClickOnConstructorInHeader() {
         WebDriver driver = driverRule.getDriver();
         MainPage.openLoginPage(driver);

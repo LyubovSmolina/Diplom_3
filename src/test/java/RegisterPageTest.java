@@ -3,6 +3,7 @@ import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.html5.WebStorage;
 import ru.praktikum.Pages.LogInPage;
 import ru.praktikum.UserData.RandomUserData;
 import ru.praktikum.Pages.RegisterPage;
@@ -41,7 +42,7 @@ public class RegisterPageTest extends LogInPage {
         checkSuccessfulRegistration(driver);
 
         //Авторизация пользователя, получение токена
-        getTokenFromLocalStorage(driver, email, password);
+        authByLinkAndGetTokenFromLocalStorage(driver, email, password);
     }
 
     @Test
@@ -59,11 +60,11 @@ public class RegisterPageTest extends LogInPage {
         checkSuccessfulRegistration(driver);
         System.out.println(password);
 
-        getTokenFromLocalStorage(driver, email, password);
+        authByLinkAndGetTokenFromLocalStorage(driver, email, password);
     }
 
     @Test
-    @DisplayName("Проверка получения ошибки при попытке регистрации аккаунта с 5 символами в поле Password")
+    @DisplayName("Проверка получения ошибки \"Некорректный пароль\" при попытке регистрации аккаунта с 5 символами в поле Password")
     public void errorRegistrationPasswordGetFiveCharacters() {
         WebDriver driver = driverRule.getDriver();
         RegisterPage.openPage(driver);
@@ -72,6 +73,7 @@ public class RegisterPageTest extends LogInPage {
 
         completionUserData(driver, randomUserData);
         checkErrorRegistrationInvalidPassword(driver);
+        getUserToken((WebStorage) driver);
 
     }
 }

@@ -22,17 +22,18 @@ public class DriverRule extends ExternalResource {
     public void initDriver() {
         if ("firefox".equals(System.getProperty("browser"))) {
             initFirefox();
+        } if ("yandex".equals(System.getProperty("browser"))) {
+            initYandex();
         } else {
             initChrome();
         }
-
     }
 
    private void initFirefox() {
         WebDriverManager.firefoxdriver().setup();
         var opts = new FirefoxOptions();
-                //.configureFromEnv();
         driver = new FirefoxDriver(opts);
+        driver.manage().window().maximize();
     }
 
     private void initChrome() {
